@@ -44,8 +44,6 @@ module.exports = function(exportPath, patterns, options){
       patterns.forEach(function(pattern) {
         try {
           var matches = glob.sync(pattern, {cwd: path.join(process.cwd())});
-          console.log(path.join(process.cwd(),root,pattern));
-          console.log('matches', matches);
           matches = matches.filter(function(match) {
             return match.match(ext + '$');
           });
