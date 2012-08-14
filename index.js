@@ -43,7 +43,9 @@ module.exports = function(exportPath, patterns, options){
       var files = [];
       patterns.forEach(function(pattern) {
         try {
-          var matches = glob.sync(pattern);
+          var matches = glob.sync(pattern, {cwd: path.join(process.cwd())});
+          console.log(path.join(process.cwd(),root,pattern));
+          console.log('matches', matches);
           matches = matches.filter(function(match) {
             return match.match(ext + '$');
           });
@@ -85,6 +87,7 @@ module.exports = function(exportPath, patterns, options){
       function expose(e, results) {
         var templates = {}, filename;
         results.forEach(function(template) {
+          console.log(template);
           filename = template.filename.replace(root + '/', '')
           templates[filename] = template.fn;
         });
