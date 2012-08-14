@@ -43,7 +43,8 @@ module.exports = function(exportPath, patterns, options){
       var files = [];
       patterns.forEach(function(pattern) {
         try {
-          var matches = glob.sync(pattern, {cwd: path.join(process.cwd())});
+          var matches = glob.sync(pattern, {cwd: path.join(process.cwd(), root)});
+          console.log(matches);
           matches = matches.filter(function(match) {
             return match.match(ext + '$');
           });
@@ -54,6 +55,7 @@ module.exports = function(exportPath, patterns, options){
       async.map(files, getTemplate, expose);
 
       function getTemplate(filename, cb) {
+        filename = path.join(process.cwd(), root, filename);
         
         fs.readFile(filename, 'utf8', function(err, content){
           if (err) {
@@ -85,8 +87,9 @@ module.exports = function(exportPath, patterns, options){
       function expose(e, results) {
         var templates = {}, filename;
         results.forEach(function(template) {
-          filename = template.filename.replace(root + '/', '')
-          templates[filename] = template.fn;
+          template.filename = template.filename.replace(path.join(process.cwd(),root),'');
+          template.filename = template.filename.substr(1, template.filename.length);
+          templates[template.filename] = template.fn;
         });
 
         var code = jade.runtime.escape.toString() +';'
