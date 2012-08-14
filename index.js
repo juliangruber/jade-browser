@@ -42,7 +42,6 @@ module.exports = function(exportPath, patterns, options){
       
       var files = [];
       patterns.forEach(function(pattern) {
-        pattern = path.join(root, pattern);
         try {
           var matches = glob.sync(pattern);
           matches = matches.filter(function(match) {
