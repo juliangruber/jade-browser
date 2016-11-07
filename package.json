@@ -11,10 +11,10 @@
     "node": ">= 0.4"
   },
   "dependencies": {
-    "jade": "0.20.3",
-    "async": "0.1.18",
-    "glob": "3.1.7",
-    "uglify-js": "1.2.5"
+    "jade": "1.11.0",
+    "async": "2.1.2",
+    "glob": "7.1.1",
+    "uglify-js": "2.7.4"
   },
   "devDependencies": {},
   "optionalDependencies": {}
